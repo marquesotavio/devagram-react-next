@@ -1,6 +1,8 @@
+@import 'variaveis.scss';
+
 * {
-  font-family: 'BiennaleRegular';
+  font-family: $fontRegular;
   font-size: 14px;
 }
 
-@import url(../public/fonts/fonts.scss);
+@import '../public/fonts/fonts.scss';
