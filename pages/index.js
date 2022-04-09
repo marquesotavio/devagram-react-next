@@ -1,16 +1,25 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Botao from '../componentes/botao'
-import Avatar from '../componentes/avatar'
+import { useState, useEffect } from "react";
+import Home from "../componentes/home";
+import Login from "../componentes/login";
+import UsuarioService from "../services/UsuarioService";
 
-export default function Home() {
-  return (
-    <>
-      <h1>Olá mundo</h1>
-      <div style={{width: 200}}>
-       <Avatar />
-       <Botao texto={'Login'} cor='primaria' manipularClique={() => console.log('botao clicado')} />
-       </div>  
-    </>
-  )
+const usuarioService = new UsuarioService();
+export default function Index() {
+  const [estaAutenticado, setEstaAutenticado] = useState(null);
+
+  useEffect(() => {
+    setEstaAutenticado(
+      usuarioService.estaAutenticado()
+    );
+  }, []);
+
+  if (estaAutenticado === null) {
+    return null;
+  }
+
+  if (estaAutenticado) {
+    return <Home />;
+  }
+
+  return <Login aposAutenticacao={() => setEstaAutenticado(true)} />;
 }
